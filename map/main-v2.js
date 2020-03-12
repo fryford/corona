@@ -137,7 +137,7 @@ map.on('load', () => {
 
 	map.on("mousemove", "corona", onMove);
 	map.on("mouseleave", "corona", onLeave);
-//	map.on("click", "corona", onClick);
+	map.on("click", "corona", onClick);
 
 function onMove(e) {
 
