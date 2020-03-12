@@ -11,7 +11,7 @@
 
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css" rel="stylesheet" />
   <link href="https://api.mapbox.com/mapbox-assembly/v0.23.2/assembly.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <style>
     body {
       margin: 0;
@@ -48,11 +48,28 @@
       color: white;
       border-collapse: collapse;
     }
+
+    #keydiv {
+      position:absolute;
+      top:0px;
+      left:0px;
+      width:100%;
+      height:40px;
+      background-color:rgba(255,255,255,0.8);
+      z-index:1;
+      font-size:18px;
+      font-weight:bold;
+    }
+
   </style>
 </head>
 
 <body>
-  <div id="map"></div>
+  <div id="map">
+    <div id='keydiv'>
+      <h4 id="keyvalue"></h4>
+    </div>
+  </div>
   <div id="key"></div>
   <script src="js/d3-queue.min.js"></script>
   <script src="js/topojson.v2.min.js"></script>

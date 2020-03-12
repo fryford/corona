@@ -43,6 +43,8 @@ var maxvalue = d3.max(cases2);
       }
 		});
 
+		console.log(areas)
+
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'data/style.json',
@@ -92,16 +94,103 @@ map.on('load', () => {
       'circle-color': {
           property: 'cases',
           stops: [
-          [0, '#f1f075'],
-          [maxvalue, '#e55e5e']
+          [0, '#abc149'],
+          [maxvalue, '#24a79b']
           ]
       }
     }
   }, 'place_suburb');
 
 
+	map.addLayer({
+		"id": "coronahover",
+		'type': 'circle',
+		'source': 'area',
+		//"source-layer": "OA_all",
+		'paint': {
+			'circle-radius': {
+					property: 'cases',
+					stops: [
+					[{zoom: 8, value: 0}, 0],
+					[{zoom: 8, value: maxvalue}, 15],
+					[{zoom: 11, value: 0}, 0],
+					[{zoom: 11, value: maxvalue}, 90],
+					[{zoom: 16, value: 0}, 0],
+					[{zoom: 16, value: maxvalue}, 600]
+					]
+			},
+			'circle-opacity': 0.9,
+			'circle-stroke-color': 'black',
+    	'circle-stroke-width': 3,
+			'circle-color': "rgba(255,255,255,0)"
+
+		},
+		"filter": ["==", "ctyua19cd", ""]
+	}, 'place_suburb');
+
+
 
 
 });
+
+
+	map.on("mousemove", "corona", onMove);
+	map.on("mouseleave", "corona", onLeave);
+
+function onMove(e) {
+
+	console.log(e);
+oldctyua19cd = "ff"
+
+		newctyua19cd = e.features[0].properties.ctyua19cd;
+
+
+
+		if(newctyua19cd != oldctyua19cd) {
+			oldctyua19cd = e.features[0].properties.ctyua19cd;
+
+
+				map.setFilter("coronahover", ["==", "ctyua19cd", e.features[0].properties.ctyua19cd]);
+
+			  var features = map.queryRenderedFeatures(e.point,{layers: ['coronahover']});
+				console.log(features)
+			 if(features.length != 0){
+
+				//
+			 setAxisVal(features[0].properties.ctyua19nm, features[0].properties.cases);
+				// updatePercent(e.features[0]);
+			}
+		};
+
+
+}
+
+
+function onLeave() {
+		map.setFilter("coronahover", ["==", "ctyua19cd", ""]);
+		oldlsoa11cd = "";
+		// $("#areaselect").val("").trigger("chosen:updated");
+		hideaxisVal();
+};
+
+function setAxisVal(areanm,areaval) {
+	console.log(areanm);
+
+	d3.select("#keyvalue").style("font-weight","bold").html(function(){
+		if(!isNaN(areaval)) {
+			return areanm + "<br>" + areaval + " confirmed cases"
+		} else {
+			return areanm + "<br>No data available";
+		}
+	});
+
+
+}
+
+function hideaxisVal() {
+	d3.select("#keyvalue").style("font-weight","bold").text("");
+
+}
+
 
 }
