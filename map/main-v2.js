@@ -8,7 +8,7 @@ d3.queue()
 
 
     function ready (error, data, geogbound, geog){
-			oldctyua19cd = "ff"
+
 
 //convert topojson to geojson
 for(key in geog.objects){
@@ -137,12 +137,12 @@ map.on('load', () => {
 
 	map.on("mousemove", "corona", onMove);
 	map.on("mouseleave", "corona", onLeave);
-	map.on("click", "corona", onClick);
+//	map.on("click", "corona", onClick);
 
 function onMove(e) {
 
-	console.log(e);
-
+//	console.log(e);
+var oldctyua19cd = "ff";
 
 		newctyua19cd = e.features[0].properties.ctyua19cd;
 
@@ -169,6 +169,8 @@ function onMove(e) {
 
 function onClick(e) {
 	 //disableMouseEvents();
+
+	 var oldctyua19cd = "ff";
 	 newctyua19cd = e.features[0].properties.ctyua19cd;
 
 	 if(newctyua19cd != oldctyua19cd) {
