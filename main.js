@@ -7,6 +7,11 @@ var totalFeatureService =
 
 d3.json(totalFeatureService, function(error, totalsData) {
 	var caseValues = totalsData.features[0].attributes;
+	const date = new Date(caseValues.DateVal);
+	const ddmmyyyy =
+		date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+	document.getElementById("last-updated-date").innerText = ddmmyyyy;
 	document.getElementById("bignum-uk-cases").innerText = caseValues.TotalUKCases;
 	document.getElementById("bignum-uk-new-cases").innerText =
 		caseValues.NewUKCases;

@@ -79,8 +79,7 @@ function drawGraphic(width) {
 			canvaswidth / dvc.essential.numbercolumns_sm_md_lg[2] -
 			dvc.optional.innerlg[1] -
 			dvc.optional.innerlg[3];
-		// console.log(canvaswidth);
-		// console.log(chart_width);
+
 		var height =
 			Math.ceil(
 				(chart_width * dvc.optional.aspectRatio_lg[1]) /
@@ -102,10 +101,6 @@ function drawGraphic(width) {
 		if (column == "group") continue;
 		variables.push(column);
 	}
-
-	console.log(variables);
-
-	//fvariables.pop();
 
 	variableslessnet = variables.slice(0, variables.length - 1);
 
@@ -137,16 +132,11 @@ function drawGraphic(width) {
 	chartgroups = chartgroups.filter(function(v, i) {
 		return chartgroups.indexOf(v) == i;
 	});
-	// console.log(chartgroups);
 
 	chartgroups.forEach(function(chartgroup, k) {
-		// console.log(chartgroup)
-
 		graphicfiltered = graphic_data.filter(function(b, i) {
 			return b.chart_title == chartgroup;
 		});
-
-		// console.log(graphicfiltered)
 
 		var x = d3
 			.scaleBand()
@@ -166,11 +156,7 @@ function drawGraphic(width) {
 			})
 		);
 
-		// console.log(x.domain())
-
 		z.domain(variableslessnet);
-
-		// console.log(z.domain())
 
 		var xAxis = d3
 			.axisBottom(x)
