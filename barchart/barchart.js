@@ -486,6 +486,16 @@ function drawGraphic(width) {
 if (Modernizr.svg) {
 	//load config
 	d3.json("config.json", function(error, config) {
+		if (!error) {
+			var graphic = document.getElementById("graphic");
+			graphic.innerHTML = "Chart data failed to load";
+			graphic.style.textAlign = "center";
+			graphic.style.marginTop = "60px";
+			graphic.style.color = "#b42525";
+			graphic.style.fontWeight = "bold";
+			return;
+		}
+
 		dvc = config;
 
 		var barchartFeatureService =

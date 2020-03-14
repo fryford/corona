@@ -329,6 +329,17 @@ if (Modernizr.svg) {
 			"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyConfirmedCases/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=DateVal%20asc&outSR=102100&resultOffset=0&resultRecordCount=2000&cacheHint=true";
 
 		d3.json(featureService, function(error, fsData) {
+			console.log(error);
+			if (!error) {
+				var graphic = document.getElementById("graphic");
+				graphic.innerHTML = "Chart data failed to load";
+				graphic.style.textAlign = "center";
+				graphic.style.marginTop = "60px";
+				graphic.style.color = "#b42525";
+				graphic.style.fontWeight = "bold";
+				return;
+			}
+
 			const features = fsData.features;
 
 			const graphic_dataFs = features.map((feature, i) => {
