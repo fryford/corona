@@ -25,9 +25,9 @@
             "xAxisScale":"auto_zero_max"
     },
     "optional" : {
-            "margin_sm": [5, 20, 5, 135],
-            "margin_md": [5, 20, 5, 135],
-            "margin_lg": [5, 20, 5, 130],
+            "margin_sm": [30, 20, 5, 135],
+            "margin_md": [30, 20, 5, 135],
+            "margin_lg": [30, 20, 5, 130],
 
             "aspectRatio_sm" : [4,7],
             "aspectRatio_md" : [1,1],

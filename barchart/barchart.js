@@ -74,7 +74,7 @@ function drawGraphic(width) {
 
 	var yAxis = d3.axisLeft(y);
 
-	var xAxis = d3.axisBottom(x).tickSize(-height, 0, 0);
+	var xAxis = d3.axisTop(x).tickSize(height, 0, 0);
 
 	//specify number or ticks on x axis
 	if (parseInt(graphic.style("width")) <= threshold_sm) {
@@ -130,9 +130,7 @@ function drawGraphic(width) {
 
 	x.domain(xDomain);
 
-	d3.select("#buttonid").on("click", function() {
-		saveSvgAsPng(document.getElementById("chart"), "diagram.png");
-	});
+
 
 	//create svg for chart
 	var svg = d3
@@ -158,13 +156,18 @@ function drawGraphic(width) {
 		.attr("transform", "translate(0, " + height + ")")
 		.call(xAxis)
 		.append("text")
-		.attr("y", 25)
+		.attr("y", -height -25)
 		.attr("x", chart_width)
 		.attr("dy", ".71em")
-		.style("text-anchor", "start")
+		.style("text-anchor", "end")
 		.attr("font-size", "12px")
 		.attr("fill", "#666")
 		.text(dvc.essential.xAxisLabel);
+
+
+		d3.select(".x .domain").remove()
+
+
 
 	//create y axis, if x axis doesn't start at 0 drop x axis accordingly
 	svg
@@ -223,13 +226,17 @@ function drawGraphic(width) {
 			return d.amt;
 		})
 		.attr("x", function(d) {
-			return x(Math.min(0, d.amt)) + 5;
+			if (d.amt <= 2) {
+				return x(Math.max(0, d.amt)) + 5;
+			} else {
+				return x(Math.min(0, d.amt)) + 5;
+			}
 		})
 		.attr("y", function(d) {
 			return y(d.name) + y.bandwidth() / 2 + 5;
 		})
 		.attr("fill", function(d, i) {
-			if (d.amt <= 0) {
+			if (d.amt <= 2) {
 				return "#323132";
 			} else {
 				return "#fff";
