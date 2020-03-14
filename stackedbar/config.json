@@ -37,7 +37,7 @@
             ],
 
             "yAxisLabel":"Cases",
-            "yAxisScale":[0,800],
+            "yAxisScale": "auto_zero_max",
             "yAxisBreak": true,
             "yAxisBreak_sm_md_lg": [65,65,65]
     },
