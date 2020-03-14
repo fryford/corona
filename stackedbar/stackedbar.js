@@ -109,8 +109,6 @@ function drawGraphic(width) {
 
 	variableslessnet = variables.slice(0, variables.length - 1);
 
-	console.log(variableslessnet);
-
 	//Create legend
 	var legend = d3
 		.select("#graphic")
@@ -346,20 +344,6 @@ if (Modernizr.svg) {
 
 		d3.json(featureService, function(error, fsData) {
 			const features = fsData.features;
-			// console.log("stackedbar.js", features);
-
-			// const example = {
-			// 	chart_title: "25-34",
-			// 	group: "Fri Jan 31 2020 00:00:00 GMT+0000 (Greenwich Mean Time)",
-			// 	newcases: 2,
-			// 	existing: 0,
-			// 	total: 2
-			// };
-
-			// DateVal: 1580428800000
-			// CMODateCount: 2
-			// CumCases: 2
-			// FID: 1
 
 			const graphic_dataFs = features.map((feature, i) => {
 				const date = new Date(feature.attributes.DateVal);
@@ -367,15 +351,13 @@ if (Modernizr.svg) {
 					date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
 				return {
-					chart_title: "25-34", // not really sure what this is?
+					chart_title: "25-34", // TODO: not really sure what this is?
 					group: ddmmyyyy,
 					newcases: feature.attributes.CMODateCount,
 					existing: feature.attributes.CumCases - feature.attributes.CMODateCount,
 					total: feature.attributes.CumCases
 				};
 			});
-
-			// console.log("FS ", typeof graphic_dataFs[0].group, graphic_dataFs[0].group);
 
 			graphic_data = graphic_dataFs;
 
