@@ -486,7 +486,7 @@ function drawGraphic(width) {
 if (Modernizr.svg) {
 	//load config
 	d3.json("config.json", function(error, config) {
-		if (!error) {
+		if (error) {
 			var graphic = document.getElementById("graphic");
 			graphic.innerHTML = "Chart data failed to load";
 			graphic.style.textAlign = "center";

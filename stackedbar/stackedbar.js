@@ -217,15 +217,13 @@ function drawGraphic(width) {
 			})
 		);
 
+
+
 		//y domain calculations	: zero to intelligent max choice, or intelligent min and max choice,  or interval chosen manually
 		if (dvc.essential.yAxisScale == "auto_zero_max") {
+			var num = d3.max(graphicfiltered, function(d) { return d.total; })
 			var yDomain = [
-				0,
-				Math.ceil(
-					d3.max(graphicfiltered, function(d) {
-						return d.total;
-					})
-				)
+				0, (parseInt(num / 10, 10) + 1) * 10
 			];
 		} else if (dvc.essential.yAxisScale == "auto_min_max") {
 			// console.log("not appropriate for a stack bar chart");
@@ -330,7 +328,7 @@ if (Modernizr.svg) {
 
 		d3.json(featureService, function(error, fsData) {
 			console.log(error);
-			if (!error) {
+			if (error) {
 				var graphic = document.getElementById("graphic");
 				graphic.innerHTML = "Chart data failed to load";
 				graphic.style.textAlign = "center";
