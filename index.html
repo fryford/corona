@@ -48,6 +48,11 @@
       font-weight: 700;
     }
 
+    .list-unstyled {
+      padding-left: 0;
+      list-style: none;
+    }
+
     .mt-5 {
       margin-top: 2rem;
     }
@@ -79,6 +84,7 @@
       color: #209287;
       margin-top: 0;
       margin-bottom: 0;
+      display: block;
     }
   </style>
 
@@ -97,18 +103,11 @@
       <section class="mb-4 mt-4">
         <div class="row">
           <h2>UK Overview</h2>
-          <div id="UKnum" class="col-xs-6 col-sm-3">
-            <h3>UK cases</h3>
-            <p class="bignum">797</p>
-          </div>
-          <div id="Engnum" class="col-xs-6 col-sm-5">
-            <h3>New confirmed cases</h3>
-            <p class="bignum">207</p>
-          </div>
-          <div id="deaths" class="col-xs-6 col-sm-3">
-            <h3>Deaths</h3>
-            <p class="bignum">10</p>
-          </div>
+          <ul class="list-unstyled">
+            <li id="UKnum" class="font-weight-bold mb-3 col-sm-3">UK cases <span class="bignum">797</span></li>
+            <li id="Engnum" class="font-weight-bold mb-3 col-sm-4">New confirmed cases <span class="bignum">207</span></li>
+            <li id="deaths" class="font-weight-bold mb-3 col-sm-4">Deaths <span class="bignum">10</span></li>
+          </ul>
         </div>
       </section>
 
@@ -122,22 +121,12 @@
       <section class="mb-4">
         <div class="row">
           <h2>How do confirmed cases vary across UK nations?</h2>
-          <div id="Engnum" class="col-sm-3 col-xs-6">
-            <h3>England</h3>
-            <p class="bignum">645</p>
-          </div>
-          <div id="Scotnum" class="col-sm-3 col-xs-6">
-            <h3>Scotland</h3>
-            <p class="bignum">85</p>
-          </div>
-          <div id="Walnum" class="col-sm-3 col-xs-6">
-            <h3>Wales</h3>
-            <p class="bignum">38</p>
-          </div>
-          <div id="NInum" class="col-sm-3 col-xs-6">
-            <h3>Northern Ireland</h3>
-            <p class="bignum">29</p>
-          </div>
+          <ul class="list-unstyled">
+            <li id="Engnum" class="font-weight-bold mb-3 col-sm-3 col-xs-6">England <span class="bignum">645</span></li>
+            <li id="Scotnum" class="font-weight-bold mb-3 col-sm-3 col-xs-6">Scotland <span class="bignum">85</span></li>
+            <li id="Walnum" class="font-weight-bold mb-3 col-sm-3 col-xs-6">Wales <span class="bignum">38</span></li>
+            <li id="NInum" class="font-weight-bold mb-3 col-sm-3 col-xs-6">Northern Ireland <span class="bignum">29</span></li>
+          </ul>
         </div>
       </section>
 
