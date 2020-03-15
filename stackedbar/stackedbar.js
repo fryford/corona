@@ -217,14 +217,12 @@ function drawGraphic(width) {
 			})
 		);
 
-
-
 		//y domain calculations	: zero to intelligent max choice, or intelligent min and max choice,  or interval chosen manually
 		if (dvc.essential.yAxisScale == "auto_zero_max") {
-			var num = d3.max(graphicfiltered, function(d) { return d.total; })
-			var yDomain = [
-				0, (parseInt(num / 10, 10) + 1) * 10
-			];
+			var num = d3.max(graphicfiltered, function(d) {
+				return d.total;
+			});
+			var yDomain = [0, (parseInt(num / 10, 10) + 1) * 10];
 		} else if (dvc.essential.yAxisScale == "auto_min_max") {
 			// console.log("not appropriate for a stack bar chart");
 		} else {
@@ -319,7 +317,11 @@ function drawGraphic(width) {
 	}
 }
 
-if (Modernizr.svg) {
+var supportsSVG =
+	!!document.createElementNS &&
+	!!document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+if (supportsSVG) {
 	d3.json("config.json", function(error, config) {
 		dvc = config;
 
@@ -327,7 +329,6 @@ if (Modernizr.svg) {
 			"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyConfirmedCases/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=DateVal%20asc&outSR=102100&resultOffset=0&resultRecordCount=2000&cacheHint=true";
 
 		d3.json(featureService, function(error, fsData) {
-			console.log(error);
 			if (error) {
 				var graphic = document.getElementById("graphic");
 				graphic.innerHTML = "Chart data failed to load";

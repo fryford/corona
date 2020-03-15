@@ -34,8 +34,6 @@ function ready(error, featureService, geogbound, geog) {
 		var areabounds = topojson.feature(geogbound, geogbound.objects[key]);
 	}
 
-	var bounds = turf.extent(areabounds);
-
 	const areabyid = [];
 	const cases = [];
 	const cases2 = [];
@@ -64,11 +62,6 @@ function ready(error, featureService, geogbound, geog) {
 	});
 
 	map.on("load", () => {
-		map.fitBounds([
-			[bounds[0], bounds[1]],
-			[bounds[2], bounds[3]]
-		]);
-
 		map.addSource("area", { type: "geojson", data: areas });
 
 		map.addSource("areabound", { type: "geojson", data: areabounds });
@@ -147,6 +140,14 @@ function ready(error, featureService, geogbound, geog) {
 			},
 			"place_suburb"
 		);
+
+		var bounds = new mapboxgl.LngLatBounds();
+
+		areas.features.forEach(function(feature) {
+			bounds.extend(feature.geometry.coordinates);
+		});
+
+		map.fitBounds(bounds);
 	});
 
 	map.on("mousemove", "corona", onMove);
