@@ -171,7 +171,7 @@ function ready(error, featureService, geogbound, geog) {
 			var features = map.queryRenderedFeatures(e.point, {
 				layers: ["coronahover"]
 			});
-			console.log(features);
+
 			if (features.length != 0) {
 				setAxisVal(features[0].properties.ctyua19nm, features[0].properties.cases);
 			}
