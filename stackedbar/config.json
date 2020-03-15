@@ -5,7 +5,7 @@
             "sort_data": false,
             "numbercolumns_sm_md_lg": [1,1,1],
 
-            "colour_palette": [ "#24a79b", "#3a7899"],
+            "colour_palette": [ "#209287", "#053d58"],
 
             "dateFormat":"%d/%m/%Y",
             "legendLabels" : ["New cases","Existing cases"],
