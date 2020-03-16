@@ -54,6 +54,15 @@ function ready(error, featureService, geogbound, geog) {
 		}
 	});
 
+	areabounds.features.map(function(d, i) {
+		if (cases[d.properties.ctyua19cd] >= 0) {
+			d.properties.cases = cases[d.properties.ctyua19cd];
+		} else {
+			d.properties.cases = 0;
+		}
+	});
+
+
 	const map = new mapboxgl.Map({
 		container: "map",
 		style: "data/style.json",
@@ -65,6 +74,23 @@ function ready(error, featureService, geogbound, geog) {
 		map.addSource("area", { type: "geojson", data: areas });
 
 		map.addSource("areabound", { type: "geojson", data: areabounds });
+
+
+		map.addLayer(
+			{
+				id: "coronaboundInvisible",
+				type: "fill",
+				source: "areabound",
+				minzoom: 4,
+				maxzoom: 20,
+				layout: {},
+				paint: {
+					"fill-color": "rgba(255,255,255,0)"
+					//"stroke-width": 1
+				}
+			},
+			"place_suburb"
+		);
 
 		map.addLayer(
 			{
@@ -150,8 +176,10 @@ function ready(error, featureService, geogbound, geog) {
 		map.fitBounds(bounds);
 	});
 
-	map.on("mousemove", "corona", onMove);
-	map.on("mouseleave", "corona", onLeave);
+	//map.on("mousemove", "corona", onMove);
+	//map.on("mouseleave", "corona", onLeave);
+	map.on("mousemove", "coronaboundInvisible", onMove);
+	map.on("mouseleave", "coronaboundInvisible", onLeave);
 	map.on("click", "corona", onClick);
 
 	function onMove(e) {
@@ -169,7 +197,7 @@ function ready(error, featureService, geogbound, geog) {
 			]);
 
 			var features = map.queryRenderedFeatures(e.point, {
-				layers: ["coronahover"]
+				layers: ["coronaboundInvisible"]
 			});
 
 			if (features.length != 0) {
