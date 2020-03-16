@@ -130,8 +130,6 @@ function drawGraphic(width) {
 
 	x.domain(xDomain);
 
-
-
 	//create svg for chart
 	var svg = d3
 		.select("#graphic")
@@ -156,7 +154,7 @@ function drawGraphic(width) {
 		.attr("transform", "translate(0, " + height + ")")
 		.call(xAxis)
 		.append("text")
-		.attr("y", -height -25)
+		.attr("y", -height - 25)
 		.attr("x", chart_width)
 		.attr("dy", ".71em")
 		.style("text-anchor", "end")
@@ -164,10 +162,7 @@ function drawGraphic(width) {
 		.attr("fill", "#666")
 		.text(dvc.essential.xAxisLabel);
 
-
-		d3.select(".x .domain").remove()
-
-
+	d3.select(".x .domain").remove();
 
 	//create y axis, if x axis doesn't start at 0 drop x axis accordingly
 	svg
@@ -489,8 +484,12 @@ function drawGraphic(width) {
 	}
 }
 
+var supportsSVG =
+	!!document.createElementNS &&
+	!!document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
 //check whether browser can cope with svg
-if (Modernizr.svg) {
+if (supportsSVG) {
 	//load config
 	d3.json("config.json", function(error, config) {
 		if (error) {
