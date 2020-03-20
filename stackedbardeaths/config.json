@@ -5,10 +5,10 @@
             "sort_data": false,
             "numbercolumns_sm_md_lg": [1,1,1],
 
-            "colour_palette": [ "#209287", "#053d58"],
+            "colour_palette": [ "#209287"],
 
             "dateFormat":"%d/%m/%Y",
-            "legendLabels" : ["New cases","Existing cases"],
+            "legendLabels" : ["Deaths"],
 
             "sourceText":["Office for National Statistics"],
             "sourceURL":["http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-350752"],
@@ -36,7 +36,7 @@
                 ["Underground","73"]
             ],
 
-            "yAxisLabel":"Cases",
+            "yAxisLabel":"Deaths",
             "yAxisScale": "auto_zero_max",
             "yAxisBreak": true,
             "yAxisBreak_sm_md_lg": [65,65,65]

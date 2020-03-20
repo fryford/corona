@@ -5,6 +5,9 @@ var pymParent = new pym.Parent("example-1", "map/index.html", { title: "Map show
 var pymParent = new pym.Parent("example-2", "barchart/index.html", {
 	title: "Bar chart showing case numbers by area"
 });
+var pymParent = new pym.Parent("example-4", "stackedbardeaths/index.html", {
+	title: "Deaths over time"
+});
 
 var numberFormat = d3.format(",");
 
