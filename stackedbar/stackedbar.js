@@ -222,7 +222,7 @@ function drawGraphic(width) {
 			var num = d3.max(graphicfiltered, function(d) {
 				return d.total;
 			});
-			var yDomain = [0, (parseInt(num / 10, 10) + 1) * 10];
+			var yDomain = [0, (parseInt(num / 100, 10) + 1) * 100];
 		} else if (dvc.essential.yAxisScale == "auto_min_max") {
 			// console.log("not appropriate for a stack bar chart");
 		} else {

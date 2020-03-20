@@ -10,8 +10,10 @@ var numberFormat = d3.format(",");
 
 var totalFeatureService =
 	"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyIndicators/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&cacheHint=true";
-
+//https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyIndicators/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&cacheHint=true
 d3.json(totalFeatureService, function(error, totalsData) {
+
+	console.log(totalsData)
 	var caseValues = totalsData.features[0].attributes;
 	const date = new Date(caseValues.DateVal);
 	const ddmmyyyy =

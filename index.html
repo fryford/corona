@@ -145,7 +145,7 @@
             <h2>How many confirmed cases are there by area?</h2>
           </div>
           <div class="row">
-            <h3 class="col-sm-12 col-xs-12 mb-3">Confirmed cases, to date, by Upper Tier Local Authorities [England only]</h3>
+            <h3 class="col-sm-12 col-xs-12 mb-3">Confirmed cases, to date, by Upper Tier Local Authorities [England & Wales] & Scottish Health Boards</h3>
             <div class="col-sm-6 col-xs-12" id="example-1"></div>
             <div class="col-sm-6 col-xs-12" id="example-2"></div>
           </div>
@@ -154,14 +154,26 @@
         <footer class="mt-5 mb-4">
           <div class="row">
             <div id="lorum-1">
-              <p class="font-weight-bold">Source: Public Health England</p>
+              <p class="font-weight-bold">Source: Public Health England, Welsh Government, Scottish Government, Northern Ireland Executive</p>
             </div>
+          </div>
+          <div class="row">
+            <h2>About</h2>
+            <p>The dashboard was initially created by <a href="https://twitter.com/fryford">Rob Fry</a> as an exercise in providing something quick, responsive and built using open source technologies. It has since been supported by <a href="https://twitter.com/JamesLMilner">James Milner</a> and <a href="https://twitter.com/benjystanton">Benjy Stanton</a></p>
+            <p>Data is sourced directly from Public Health England (PHE) and will update as soon as data <a href="https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases">released here</a> is published.</p>
+            <p>The data is based on cases reported to PHE and matched to ONS administrative geography codes and names to generate geographic case counts. Total number for England may not match UTLA and NHS Regions number as some cases are awaiting geographical information. Cases include people who are recovered.</p>
+            <p>Time series data indicate the date of communication to PHE and is used to define the charts and totals.</p>
+            <p>The map is using proportional symbols to represent the number of cases at the geographic centres of Country, NHS England and County/UTLA boundaries. Devolved Administration data is represented on the charts, total indicators and on the Country level map layer, however it is not included in the NHS England Region and County/UTLA map layers.</p>
+            <p>Data for Devolved Administrations has been sourced from authorised published data and is correct at time of publishing and subject to change.</p>
+            <p>Contains Ordnance Survey data © Crown copyright and database right 2020. Contains National Statistics data © Crown copyright and database right 2020.</p>
+            <p>There may be some minor fluctuations in the daily number of cases due to laboratory reporting delays. Patients recovered is the number of people discharged from NHS clinical services in England following a positive test result for COVID-19.</p>
+            <!-- <p>One of the main aims of this project was to </p> -->
           </div>
         </footer>
 
       </article>
     </main>
-    
+
     <script defer src="https://cdn.ons.gov.uk/vendor/pym/1.3.2/pym.min.js" type="text/javascript"></script>
     <script defer src="https://d3js.org/d3.v4.min.js"></script>
     <script defer src="main.js"></script>

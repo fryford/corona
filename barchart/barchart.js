@@ -221,7 +221,7 @@ function drawGraphic(width) {
 			return d.amt;
 		})
 		.attr("x", function(d) {
-			if (d.amt <= 2) {
+			if (d.amt <= 9) {
 				return x(Math.max(0, d.amt)) + 5;
 			} else {
 				return x(Math.min(0, d.amt)) + 5;
@@ -231,7 +231,7 @@ function drawGraphic(width) {
 			return y(d.name) + y.bandwidth() / 2 + 5;
 		})
 		.attr("fill", function(d, i) {
-			if (d.amt <= 2) {
+			if (d.amt <= 9) {
 				return "#323132";
 			} else {
 				return "#fff";
@@ -505,18 +505,67 @@ if (supportsSVG) {
 		dvc = config;
 
 		var barchartFeatureService =
-			"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/CountyUAs_cases/FeatureServer/0/query?f=json&where=1=1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=TotalCases%20desc&outSR=102100&resultOffset=0&resultRecordCount=1000&cacheHint=true";
+			"https://raw.githubusercontent.com/tomwhite/covid-19-uk-data/master/data/covid-19-cases-uk.csv";
+			//"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/CountyUAs_cases/FeatureServer/0/query?f=json&where=1=1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=TotalCases%20desc&outSR=102100&resultOffset=0&resultRecordCount=1000&cacheHint=true";
 
-		d3.json(barchartFeatureService, function(error, fsData) {
-			const features = fsData.features;
+		var parseDate = d3.timeParse("%Y-%m-%d");
+		var formatDate = d3.timeFormat("%Y-%m-%d");
+
+
+		d3.csv(barchartFeatureService, function(error, fsData) {
+			console.log(fsData)
+
+			engdata = fsData.filter(function(d) {return d.Country=="England"});
+			walesdata = fsData.filter(function(d) {return d.Country=="Wales"});
+			scotdata = fsData.filter(function(d) {return d.Country=="Scotland"});
+
+			dates = engdata.map(function(d) {
+			    return {
+			        "month": parseDate(d.Date)
+			    };
+			});
+
+			latestDateEng = d3.max(dates.map(d=>d.month));
+
+
+			dates = walesdata.map(function(d) {
+			    return {
+			        "month": parseDate(d.Date)
+			    };
+			});
+
+			latestDateWales = d3.max(dates.map(d=>d.month));
+
+
+			dates = scotdata.map(function(d) {
+					return {
+							"month": parseDate(d.Date)
+					};
+			});
+
+			latestDateScot = d3.max(dates.map(d=>d.month));
+
+			filteredData = fsData.filter(function(d) {
+				if(d.Country=="England" && d.Date==formatDate(latestDateEng)) {
+					return d.Country=="England" && d.Date==formatDate(latestDateEng);
+				} else if(d.Country=="Wales" && d.Date==formatDate(latestDateWales)) {
+					return d.Country=="Wales" && d.Date==formatDate(latestDateWales);
+				} else if(d.Country=="Scotland" && d.Date==formatDate(latestDateScot)) {
+					return d.Country=="Scotland" && d.Date==formatDate(latestDateScot);
+				}
+			})
+
+			const features = filteredData;
 			const graphic_dataFs = features.map(feature => {
 				return {
-					name: feature.attributes.GSS_NM,
-					value: feature.attributes.TotalCases
+					name: feature.Area,
+					value: feature.TotalCases
 				};
 			});
 			graphic_dataFs.columns = ["name", "value"];
 			graphic_data = graphic_dataFs;
+
+			console.log(graphic_data);
 
 			pymChild = new pym.Child({
 				renderCallback: drawGraphic

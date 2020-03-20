@@ -1,11 +1,11 @@
 var pymChild = new pym.Child();
 
-var featureService =
-	"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/CountyUAs_cases/FeatureServer/0/query?f=json&where=TotalCases%20%3C%3E%200&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=TotalCases%20desc&outSR=102100&resultOffset=0&resultRecordCount=1000&cacheHint=true";
+var featureService = "https://raw.githubusercontent.com/tomwhite/covid-19-uk-data/master/data/covid-19-cases-uk.csv";
+	//"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/CountyUAs_cases/FeatureServer/0/query?f=json&where=TotalCases%20%3C%3E%200&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=TotalCases%20desc&outSR=102100&resultOffset=0&resultRecordCount=1000&cacheHint=true";
 
 d3
 	.queue()
-	.defer(d3.json, featureService)
+	.defer(d3.csv, featureService)
 	.defer(d3.json, "data/countyuabound.json")
 	.defer(d3.json, "data/countyua.json")
 	.await(ready);
@@ -16,14 +16,59 @@ function ready(error, featureService, geogbound, geog) {
 		return;
 	}
 
-	var features = featureService.features;
-	var data = features.map(feature => {
+	var parseDate = d3.timeParse("%Y-%m-%d");
+	var formatDate = d3.timeFormat("%Y-%m-%d");
+
+	//Filter english data
+
+	engdata = featureService.filter(function(d) {return d.Country=="England"});
+	walesdata = featureService.filter(function(d) {return d.Country=="Wales"});
+	scotdata = featureService.filter(function(d) {return d.Country=="Scotland"});
+
+	dates = engdata.map(function(d) {
+	    return {
+	        "month": parseDate(d.Date)
+	    };
+	});
+
+	latestDateEng = d3.max(dates.map(d=>d.month));
+
+
+	dates = walesdata.map(function(d) {
+	    return {
+	        "month": parseDate(d.Date)
+	    };
+	});
+
+	latestDateWales = d3.max(dates.map(d=>d.month));
+
+
+	dates = scotdata.map(function(d) {
+			return {
+					"month": parseDate(d.Date)
+			};
+	});
+
+	latestDateScot = d3.max(dates.map(d=>d.month));
+
+	filteredData = featureService.filter(function(d) {
+		if(d.Country=="England" && d.Date==formatDate(latestDateEng)) {
+			return d.Country=="England" && d.Date==formatDate(latestDateEng);
+		} else if(d.Country=="Wales" && d.Date==formatDate(latestDateWales)) {
+			return d.Country=="Wales" && d.Date==formatDate(latestDateWales);
+		} else if(d.Country=="Scotland" && d.Date==formatDate(latestDateScot)) {
+			return d.Country=="Scotland" && d.Date==formatDate(latestDateScot);
+		}
+	})
+
+	var data = filteredData.map(feature => {
 		return {
-			areacd: feature.attributes.GSS_CD,
-			areanm: feature.attributes.GSS_NM,
-			cases: feature.attributes.TotalCases
+			areacd: feature.AreaCode,
+			areanm: feature.Area,
+			cases: feature.TotalCases
 		};
 	});
+
 
 	//convert topojson to geojson
 	for (key in geog.objects) {
@@ -176,8 +221,6 @@ function ready(error, featureService, geogbound, geog) {
 		map.fitBounds(bounds);
 	});
 
-	//map.on("mousemove", "corona", onMove);
-	//map.on("mouseleave", "corona", onLeave);
 	map.on("mousemove", "coronaboundInvisible", onMove);
 	map.on("mouseleave", "coronaboundInvisible", onLeave);
 	map.on("click", "corona", onClick);
