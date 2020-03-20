@@ -1,9 +1,9 @@
 var pymParent = new pym.Parent("example-0", "stackedbar/index.html", {
-	title: "Stacked Barchart"
+	title: "Case numbers over time"
 });
-var pymParent = new pym.Parent("example-1", "map/index.html", { title: "Map" });
+var pymParent = new pym.Parent("example-1", "map/index.html", { title: "Map showing case numbers by area" });
 var pymParent = new pym.Parent("example-2", "barchart/index.html", {
-	title: "Stacked Barchart"
+	title: "Bar chart showing case numbers by area"
 });
 
 var numberFormat = d3.format(",");
