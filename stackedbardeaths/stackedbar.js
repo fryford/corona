@@ -341,16 +341,12 @@ if (supportsSVG) {
 				return;
 			}
 
-			console.log(fsData)
-
 			const features = fsData;
 
 			const graphic_dataFs = features.map((feature, i) => {
 				const date = new Date(feature.Date);
 				const ddmmyyyy =
 					date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-
-					console.log(ddmmyyyy)
 
 				return {
 					chart_title: "25-34", // TODO: not really sure what this is?
@@ -359,8 +355,6 @@ if (supportsSVG) {
 					total: +feature.Deaths
 				};
 			});
-
-			console.log(graphic_dataFs)
 
 			graphic_data = graphic_dataFs;
 
