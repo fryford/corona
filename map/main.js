@@ -92,16 +92,16 @@ function ready(error, featureService, geogbound, geog) {
 	var maxvalue = d3.max(cases2);
 
 	areas.features.map(function(d, i) {
-		if (cases[d.properties.ctyua19cd] >= 0) {
-			d.properties.cases = cases[d.properties.ctyua19cd];
+		if (cases[d.properties.areacd] >= 0) {
+			d.properties.cases = cases[d.properties.areacd];
 		} else {
 			d.properties.cases = 0;
 		}
 	});
 
 	areabounds.features.map(function(d, i) {
-		if (cases[d.properties.ctyua19cd] >= 0) {
-			d.properties.cases = cases[d.properties.ctyua19cd];
+		if (cases[d.properties.areacd] >= 0) {
+			d.properties.cases = cases[d.properties.areacd];
 		} else {
 			d.properties.cases = 0;
 		}
@@ -207,7 +207,24 @@ function ready(error, featureService, geogbound, geog) {
 					"circle-stroke-width": 3,
 					"circle-color": "rgba(255,255,255,0)"
 				},
-				filter: ["==", "ctyua19cd", ""]
+				filter: ["==", "areacd", ""]
+			},
+			"place_suburb"
+		);
+
+		map.addLayer(
+			{
+				id: "coronaboundhover",
+				type: "line",
+				source: "areabound",
+				minzoom: 3,
+				maxzoom: 20,
+				layout: {},
+				paint: {
+					"line-color": "black",
+					"line-width": 2
+				},
+			filter: ["==", "areacd", ""]
 			},
 			"place_suburb"
 		);
@@ -226,17 +243,23 @@ function ready(error, featureService, geogbound, geog) {
 	map.on("click", "corona", onClick);
 
 	function onMove(e) {
-		var oldctyua19cd = "ff";
+		var oldareacd = "ff";
 
-		newctyua19cd = e.features[0].properties.ctyua19cd;
+		newareacd = e.features[0].properties.areacd;
 
-		if (newctyua19cd != oldctyua19cd) {
-			oldctyua19cd = e.features[0].properties.ctyua19cd;
+		if (newareacd != oldareacd) {
+			oldareacd = e.features[0].properties.areacd;
 
 			map.setFilter("coronahover", [
 				"==",
-				"ctyua19cd",
-				e.features[0].properties.ctyua19cd
+				"areacd",
+				e.features[0].properties.areacd
+			]);
+
+			map.setFilter("coronaboundhover", [
+				"==",
+				"areacd",
+				e.features[0].properties.areacd
 			]);
 
 			var features = map.queryRenderedFeatures(e.point, {
@@ -244,32 +267,40 @@ function ready(error, featureService, geogbound, geog) {
 			});
 
 			if (features.length != 0) {
-				setAxisVal(features[0].properties.ctyua19nm, features[0].properties.cases);
+				setAxisVal(features[0].properties.areanm, features[0].properties.cases);
 			}
 		}
 	}
 
 	function onClick(e) {
-		var oldctyua19cd = "ff";
-		newctyua19cd = e.features[0].properties.ctyua19cd;
+		var oldareacd = "ff";
+		newareacd = e.features[0].properties.areacd;
 
-		if (newctyua19cd != oldctyua19cd) {
-			oldctyua19cd = e.features[0].properties.ctyua19cd;
+		if (newareacd != oldareacd) {
+			oldareacd = e.features[0].properties.areacd;
 			map.setFilter("coronahover", [
 				"==",
-				"ctyua19cd",
-				e.features[0].properties.ctyua19cd
+				"areacd",
+				e.features[0].properties.areacd
+			]);
+
+			map.setFilter("coronaboundhover", [
+				"==",
+				"areacd",
+				e.features[0].properties.areacd
 			]);
 
 			setAxisVal(
-				e.features[0].properties.ctyua19nm,
+				e.features[0].properties.areanm,
 				e.features[0].properties.cases
 			);
 		}
 	}
 
 	function onLeave() {
-		map.setFilter("coronahover", ["==", "ctyua19cd", ""]);
+		map.setFilter("coronahover", ["==", "areacd", ""]);
+		map.setFilter("coronaboundhover", ["==", "areacd", ""]);
+
 		oldlsoa11cd = "";
 		hideaxisVal();
 	}
