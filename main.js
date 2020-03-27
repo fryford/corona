@@ -9,6 +9,10 @@ var pymParent = new pym.Parent("example-4", "stackedbardeaths/index.html", {
 	title: "Deaths over time"
 });
 
+var pymParent = new pym.Parent("example-5", "ratemap/index.html", {
+	title: "Map showing rates by area"
+});
+
 var numberFormat = d3.format(",");
 
 var totalFeatureService =

@@ -221,7 +221,7 @@ function drawGraphic(width) {
 			return d.amt;
 		})
 		.attr("x", function(d) {
-			if (d.amt <= 50) {
+			if (d.amt <= 130) {
 				return x(Math.max(0, d.amt)) + 5;
 			} else {
 				return x(Math.min(0, d.amt)) + 5;
@@ -231,7 +231,7 @@ function drawGraphic(width) {
 			return y(d.name) + y.bandwidth() / 2 + 5;
 		})
 		.attr("fill", function(d, i) {
-			if (d.amt <= 50) {
+			if (d.amt <= 130) {
 				return "#323132";
 			} else {
 				return "#fff";

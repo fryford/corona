@@ -46,9 +46,9 @@
             "margin_md": [0, 0, 0, 14],
             "margin_lg": [0, 0, 0, 14],
 
-            "innersm":[50 , 30 , 40 , 20 ],
-            "innermd":[35 , 30 , 50 , 20 ],
-            "innerlg":[35 , 30 , 50 , 20 ],
+            "innersm":[50 , 30 , 40 , 25 ],
+            "innermd":[35 , 30 , 50 , 25 ],
+            "innerlg":[35 , 30 , 50 , 25 ],
 
             "aspectRatio_sm" : [16,12],
             "aspectRatio_md" : [16,5],
@@ -58,7 +58,7 @@
 
             "xAxisTextFormat_sm_md_lg" : ["%d %b", "%d %b", "%d %b"],
 
-            "x_num_ticks_sm_md_lg" : [10,3,3],
+            "x_num_ticks_sm_md_lg" : [15,4,4],
             "y_num_ticks_sm_md_lg" : [3,5,5],
             "centre_line" : false,
             "centre_line_value" : 0

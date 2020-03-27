@@ -58,7 +58,7 @@
 
             "xAxisTextFormat_sm_md_lg" : ["%d %b", "%d %b", "%d %b"],
 
-            "x_num_ticks_sm_md_lg" : [10,3,3],
+            "x_num_ticks_sm_md_lg" : [15,4,4],
             "y_num_ticks_sm_md_lg" : [3,5,5],
             "centre_line" : false,
             "centre_line_value" : 0

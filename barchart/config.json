@@ -35,7 +35,7 @@
 
             "mobileBreakpoint" : 510,
 
-            "x_num_ticks_sm_md_lg" : [6,8,10],
+            "x_num_ticks_sm_md_lg" : [3,5,8],
             "vertical_line" : false,
             "annotateLineX1_Y1_X2_Y2":[ [[25,"South East"],[25,"East"]]],
             "annotateRect" : true,

@@ -1,0 +1,10 @@
+{"ons":{
+"maptitle": "map about life expectancy",
+"varcolour": "YlGnBu",
+"varunit": "cases per 100,000",
+"displaydecimals": 1,
+"legenddecimals": 0,
+"breaks": "jenks",
+"dropticks": false,
+"numberBreaks": 5
+}}
