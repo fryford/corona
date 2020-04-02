@@ -128,6 +128,8 @@ console.log(dvc.varname)
 			}
 		})
 
+		console.log(filteredData)
+
 		var datacase = filteredData.map(feature => {
 				return {
 					AREACD: feature.AreaCode,
@@ -136,26 +138,16 @@ console.log(dvc.varname)
 			}
 		});
 
-		console.log(filteredData)
-
-		console.log(pop.filter(function(d) {return d.AREACD=="S08000024"})[0].pop)
-
 
 		//set up d3 color scales
 		caseById = {};
 		rateById = {};
 		areaById = {};
 
-			console.log(pop);
-
-		datacase.forEach(function(d) { rateById[d.AREACD] = +(d.cases/pop.filter(function(x){return d.AREACD == x.AREACD})[0].pop)*100000; areaById[d.AREACD] = d.AREANM});
-
-		console.log(rateById);
+		datacase.forEach(function(d) {console.log(d.AREACD); rateById[d.AREACD] = +(d.cases/pop.filter(function(x){return d.AREACD == x.AREACD})[0].pop)*100000; areaById[d.AREACD] = d.AREANM});
 
 		//Flatten data values and work out breaks
 		var values =  datacase.map(function(d) { return +(d.cases/pop.filter(function(x){return d.AREACD == x.AREACD})[0].pop)*100000; }).filter(function(d) {return !isNaN(d)}).sort(d3.ascending);
-
-		console.log(values)
 
 		if(config.ons.breaks =="jenks") {
 			breaks = [];
@@ -181,7 +173,7 @@ console.log(dvc.varname)
 			return Number(each_element.toFixed(dvc.legenddecimals));
 		});
 
-		console.log(breaks)
+		console.log(pop)
 
 		//work out halfway point (for no data position)
 		midpoint = breaks[0] + ((breaks[dvc.numberBreaks] - breaks[0])/2)
