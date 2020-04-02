@@ -33,8 +33,6 @@ if(Modernizr.webgl) {
 
 		}
 
-console.log(dvc.varname)
-
 		//set title of page
 		//Need to test that this shows up in GA
 		document.title = dvc.maptitle;
@@ -128,7 +126,6 @@ console.log(dvc.varname)
 			}
 		})
 
-		console.log(filteredData)
 
 		var datacase = filteredData.map(feature => {
 				return {
@@ -173,8 +170,6 @@ console.log(dvc.varname)
 			return Number(each_element.toFixed(dvc.legenddecimals));
 		});
 
-		console.log(pop)
-
 		//work out halfway point (for no data position)
 		midpoint = breaks[0] + ((breaks[dvc.numberBreaks] - breaks[0])/2)
 
@@ -188,7 +183,6 @@ console.log(dvc.varname)
 			colour = dvc.varcolour;
 		}
 
-		console.log(colour)
 		//set up d3 color scales
 		color = d3.scaleThreshold()
 				.domain(breaks.slice(1))
@@ -213,7 +207,6 @@ console.log(dvc.varname)
 		//and add properties to the geojson based on the csv file we've read in
 		areas.features.map(function(d,i) {
 
-			//console.log()
 
 		  d.properties.fill = color(rateById[d.properties.AREACD])
 		});
@@ -319,7 +312,6 @@ console.log(dvc.varname)
 			if(detectIE()){
 				onMove = onMove.debounce(100);
 				onLeave = onLeave.debounce(100);
-				console.log("ie");
 			};
 
 			//Highlight stroke on mouseover (and show area information)
@@ -567,7 +559,6 @@ console.log(dvc.varname)
 
 	function exitHandler() {
 
-		console.log("shrink");
 			if (document.webkitIsFullScreen === false)
 			{
 				shrinkbody();
