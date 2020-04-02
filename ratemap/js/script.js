@@ -144,7 +144,7 @@ console.log(dvc.varname)
 		rateById = {};
 		areaById = {};
 
-		datacase.forEach(function(d) {console.log(d.AREACD); rateById[d.AREACD] = +(d.cases/pop.filter(function(x){return d.AREACD == x.AREACD})[0].pop)*100000; areaById[d.AREACD] = d.AREANM});
+		datacase.forEach(function(d) {rateById[d.AREACD] = +(d.cases/pop.filter(function(x){return d.AREACD == x.AREACD})[0].pop)*100000; areaById[d.AREACD] = d.AREANM});
 
 		//Flatten data values and work out breaks
 		var values =  datacase.map(function(d) { return +(d.cases/pop.filter(function(x){return d.AREACD == x.AREACD})[0].pop)*100000; }).filter(function(d) {return !isNaN(d)}).sort(d3.ascending);
