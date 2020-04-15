@@ -83,16 +83,16 @@ d3.csv(totalFeatureService, function(error, totalsData) {
 	document.getElementById("bignum-uk-deaths").innerText = numberFormat(
 		totaldeaths[0].Value
 	);
-	document.getElementById("bignum-england-cases").innerText = numberFormat(
-		caseValues.EnglandCases
-	);
-	document.getElementById("bignum-scotland-cases").innerText = numberFormat(
-		caseValues.ScotlandCases
-	);
-	document.getElementById("bignum-wales-cases").innerText = numberFormat(
-		caseValues.WalesCases
-	);
-	document.getElementById("bignum-ni-cases").innerText = numberFormat(
-		caseValues.NICases
-	);
+	// document.getElementById("bignum-england-cases").innerText = numberFormat(
+	// 	caseValues.EnglandCases
+	// );
+	// document.getElementById("bignum-scotland-cases").innerText = numberFormat(
+	// 	caseValues.ScotlandCases
+	// );
+	// document.getElementById("bignum-wales-cases").innerText = numberFormat(
+	// 	caseValues.WalesCases
+	// );
+	// document.getElementById("bignum-ni-cases").innerText = numberFormat(
+	// 	caseValues.NICases
+	// );
 });
