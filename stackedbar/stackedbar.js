@@ -326,9 +326,9 @@ if (supportsSVG) {
 		dvc = config;
 
 		var featureService =
-			"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyConfirmedCases/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=DateVal%20asc&outSR=102100&resultOffset=0&resultRecordCount=2000&cacheHint=true";
+			"https://raw.githubusercontent.com/tomwhite/covid-19-uk-data/master/data/covid-19-totals-uk.csv";
 
-		d3.json(featureService, function(error, fsData) {
+		d3.csv(featureService, function(error, fsData) {
 			if (error) {
 				var graphic = document.getElementById("graphic");
 				graphic.innerHTML = "Chart data failed to load";
@@ -339,21 +339,30 @@ if (supportsSVG) {
 				return;
 			}
 
-			const features = fsData.features;
+			const features = fsData;
 
 			const graphic_dataFs = features.map((feature, i) => {
-				const date = new Date(feature.attributes.DateVal);
+				const date = new Date(feature.Date);
 				const ddmmyyyy =
 					date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+					if(i>0){
+							lastconfirmed = features[i-1].ConfirmedCases;
+					} else {
+							lastconfirmed = 0;
+					}
 
 				return {
 					chart_title: "25-34", // TODO: not really sure what this is?
 					group: ddmmyyyy,
-					newcases: feature.attributes.CMODateCount,
-					existing: feature.attributes.CumCases - feature.attributes.CMODateCount,
-					total: feature.attributes.CumCases
+					newcases: feature.ConfirmedCases - lastconfirmed,
+					existing: feature.ConfirmedCases - (feature.ConfirmedCases - lastconfirmed),
+					total: +feature.ConfirmedCases
 				};
+
 			});
+
+			console.log(graphic_dataFs)
 
 			graphic_data = graphic_dataFs;
 

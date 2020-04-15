@@ -42,9 +42,9 @@
             "yAxisBreak_sm_md_lg": [65,65,65]
     },
     "optional" : {
-            "margin_sm": [0, 0, 0, 14],
-            "margin_md": [0, 0, 0, 14],
-            "margin_lg": [0, 0, 0, 14],
+            "margin_sm": [0, 0, 0, 24],
+            "margin_md": [0, 0, 0, 24],
+            "margin_lg": [0, 0, 0, 24],
 
             "innersm":[50 , 30 , 40 , 20 ],
             "innermd":[35 , 30 , 50 , 20 ],

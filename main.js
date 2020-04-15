@@ -15,26 +15,73 @@ var pymParent = new pym.Parent("example-5", "ratemap/index.html", {
 
 var numberFormat = d3.format(",");
 
+var parseDate = d3.timeParse("%Y-%m-%d");
+var firstFormat = d3.timeFormat("%Y-%m-%d");
+var formatDate = d3.timeFormat("%d-%m-%Y");
+
+
+
 var totalFeatureService =
-	"https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyIndicators/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&cacheHint=true";
+	"https://raw.githubusercontent.com/tomwhite/covid-19-uk-data/master/data/covid-19-indicators-uk.csv";
 //https://services1.arcgis.com/0IrmI40n5ZYxTUrV/arcgis/rest/services/DailyIndicators/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&cacheHint=true
-d3.json(totalFeatureService, function(error, totalsData) {
+d3.csv(totalFeatureService, function(error, totalsData) {
 
 	console.log(totalsData)
-	var caseValues = totalsData.features[0].attributes;
-	const date = new Date(caseValues.DateVal);
-	const ddmmyyyy =
-		date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+	//var caseValues = totalsData.features.attributes;
+	//const date = new Date(caseValues.DateVal);
+	//const ddmmyyyy =
+	//	date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-	document.getElementById("last-updated-date").innerText = ddmmyyyy;
+	dates = totalsData.map(function(d) {
+	    return {
+	        "month": parseDate(d.Date)
+	    };
+	});
+
+	console.log(dates)
+
+	latestDate = d3.max(dates.map(d=>d.month));
+
+
+	totalcases = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(latestDate) && d.Country == "UK" && d.Indicator == "ConfirmedCases"
+	});
+
+	totaldeaths = totalsData.filter(function(d,i) {
+		//console.log(d)
+		return d.Date==firstFormat(latestDate) && d.Country == "UK" && d.Indicator == "Deaths"
+	});
+
+
+	//var d = new Date();
+ 	tminus1 = d3.timeDay.offset(latestDate, -1)
+
+	console.log(latestDate)
+	console.log(tminus1)
+
+	totalcasesyesterday = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(tminus1) && d.Country == "UK" && d.Indicator == "ConfirmedCases"
+	});
+
+	totaldeathsyesterday = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(tminus1) && d.Country == "UK" && d.Indicator == "Deaths"
+	});
+
+	document.getElementById("last-updated-date").innerText = formatDate(latestDate);
 	document.getElementById("bignum-uk-cases").innerText = numberFormat(
-		caseValues.TotalUKCases
+		totalcases[0].Value
 	);
 	document.getElementById("bignum-uk-new-cases").innerText = numberFormat(
-		caseValues.NewUKCases
+		totalcases[0].Value - totalcasesyesterday[0].Value
+	);
+	document.getElementById("bignum-uk-new-deaths").innerText = numberFormat(
+		totaldeaths[0].Value - totaldeathsyesterday[0].Value
 	);
 	document.getElementById("bignum-uk-deaths").innerText = numberFormat(
-		caseValues.TotalUKDeaths
+		totaldeaths[0].Value
 	);
 	document.getElementById("bignum-england-cases").innerText = numberFormat(
 		caseValues.EnglandCases
