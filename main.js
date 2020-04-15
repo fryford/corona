@@ -70,6 +70,46 @@ d3.csv(totalFeatureService, function(error, totalsData) {
 		return d.Date==firstFormat(tminus1) && d.Country == "UK" && d.Indicator == "Deaths"
 	});
 
+	totalEngcases = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(latestDate) && d.Country == "England" && d.Indicator == "ConfirmedCases"
+	});
+
+	totalScotcases = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(latestDate) && d.Country == "Scotland" && d.Indicator == "ConfirmedCases"
+	});
+
+	totalWalescases = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(latestDate) && d.Country == "Wales" && d.Indicator == "ConfirmedCases"
+	});
+
+	totalNIcases = totalsData.filter(function(d,i) {
+		//console.log(i)
+		return d.Date==firstFormat(latestDate) && d.Country == "Northern Ireland" && d.Indicator == "ConfirmedCases"
+	});
+
+
+
+	totalEngdeaths = totalsData.filter(function(d,i) {
+		return d.Date==firstFormat(latestDate) && d.Country == "England" && d.Indicator == "Deaths"
+	});
+
+	totalScotdeaths = totalsData.filter(function(d,i) {
+		return d.Date==firstFormat(latestDate) && d.Country == "Scotland" && d.Indicator == "Deaths"
+	});
+
+	totalWalesdeaths = totalsData.filter(function(d,i) {
+		return d.Date==firstFormat(latestDate) && d.Country == "Wales" && d.Indicator == "Deaths"
+	});
+
+	totalNIdeaths = totalsData.filter(function(d,i) {
+		return d.Date==firstFormat(latestDate) && d.Country == "Northern Ireland" && d.Indicator == "Deaths"
+	});
+
+
+
 	document.getElementById("last-updated-date").innerText = formatDate(latestDate);
 	document.getElementById("bignum-uk-cases").innerText = numberFormat(
 		totalcases[0].Value
@@ -83,16 +123,29 @@ d3.csv(totalFeatureService, function(error, totalsData) {
 	document.getElementById("bignum-uk-deaths").innerText = numberFormat(
 		totaldeaths[0].Value
 	);
-	// document.getElementById("bignum-england-cases").innerText = numberFormat(
-	// 	caseValues.EnglandCases
-	// );
-	// document.getElementById("bignum-scotland-cases").innerText = numberFormat(
-	// 	caseValues.ScotlandCases
-	// );
-	// document.getElementById("bignum-wales-cases").innerText = numberFormat(
-	// 	caseValues.WalesCases
-	// );
-	// document.getElementById("bignum-ni-cases").innerText = numberFormat(
-	// 	caseValues.NICases
-	// );
+	document.getElementById("bignum-england-cases").innerText = numberFormat(
+		totalEngcases[0].Value
+	);
+	document.getElementById("bignum-scotland-cases").innerText = numberFormat(
+		totalScotcases[0].Value
+	);
+	document.getElementById("bignum-wales-cases").innerText = numberFormat(
+		totalWalescases[0].Value
+	);
+	document.getElementById("bignum-ni-cases").innerText = numberFormat(
+		totalNIcases[0].Value
+	);
+
+	document.getElementById("bignum-england-deaths").innerText = numberFormat(
+		totalEngdeaths[0].Value
+	);
+	document.getElementById("bignum-scotland-deaths").innerText = numberFormat(
+		totalScotdeaths[0].Value
+	);
+	document.getElementById("bignum-wales-deaths").innerText = numberFormat(
+		totalWalesdeaths[0].Value
+	);
+	document.getElementById("bignum-ni-deaths").innerText = numberFormat(
+		totalNIdeaths[0].Value
+	);
 });
